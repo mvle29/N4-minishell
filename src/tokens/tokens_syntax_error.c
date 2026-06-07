@@ -12,35 +12,34 @@
 
 #include "minishell.h"
 
-char	*tokens_error_syntax4(t_tokens *iterate)
+int	pipe_syntax_error(t_tokens *iterate, char **error)
 {
 	t_tokens	*tmp;
-	char		*error;
 
-	error = NULL;
 	if (iterate->token == PIPE)
 	{
 		tmp = iterate->next;
-		while (tmp && !error)
+		while (tmp && (*error) == NULL)
 		{
 			if (tmp->token == WORD)
-				return (NULL);
+				return (0);
 			if (tmp->token == PIPE)
-				error = "|";
+				*error = iterate->lexeme;
 			tmp = tmp->next;
 		}
+		*error = iterate->lexeme;
 	}
-	return (error);
+	else
+		return (0);
+	return (1);
 }
 
-char	*tokens_error_syntax3(t_tokens *iterate)
+int	quote_syntax_error(t_tokens *iterate, char **error)
 {
 	t_mode	mode;
-	char	*error;
 	int		i;
 
 	mode = NORMAL;
-	error = NULL;
 	i = 0;
 	while (iterate->lexeme[i])
 	{
@@ -54,52 +53,54 @@ char	*tokens_error_syntax3(t_tokens *iterate)
 		i++;
 	}
 	if (mode == SINGLEQ)
-		error = "'";
-	if (mode == DOUBLEQ)
-		error = "\"";
-	return (error);
+		*error = "\'";
+	else if (mode == DOUBLEQ)
+		*error = "\"";
+	else
+		return (0);
+	return (1);
 }
 
-char	*tokens_error_syntax2(t_tokens *tokens, t_tokens *iterate)
+int	basic_syntax_error(t_tokens *tokens, t_tokens *iterate, char **error)
 {
-	char		*error;
-
-	error = NULL;
 	if (iterate->token == PIPE && (iterate == tokens || !iterate->next))
-		error = iterate->lexeme;
+		*error = iterate->lexeme;
 	else if ((iterate->token == LESSER || iterate->token == DLESSER)
 		&& (!iterate->next || iterate->next->token != WORD))
-		error = iterate->lexeme;
+		*error = iterate->lexeme;
 	else if ((iterate->token == GREATER || iterate->token == DGREATER)
 		&& (!iterate->next || iterate->next->token != WORD))
-		error = iterate->lexeme;
-	return (error);
+		*error = iterate->lexeme;
+	else
+		return (0);
+	return (1);
 }
 
-int	tokens_error_syntax(t_tokens *tokens)
+int	tokens_syntax_error(t_tokens *tokens)
 {
 	char		*error;
-	t_tokens	*tmp;
+	t_tokens	*iterate;
 
-	tmp = tokens;
+	iterate = tokens;
 	error = NULL;
-	while (tmp && !error)
+	while (iterate && !error)
 	{
-		error = tokens_error_syntax2(tokens, tmp);
-		if (error)
+		if (basic_syntax_error(tokens, iterate, &error))
 			break ;
-		error = tokens_error_syntax3(tmp);
-		if (error)
+		if (quote_syntax_error(iterate, &error))
 			break ;
-		error = tokens_error_syntax4(tmp);
-		if (error)
+		if (pipe_syntax_error(iterate, &error))
 			break ;
-		tmp = tmp->next;
+		iterate = iterate->next;
 	}
 	if (error)
 	{
-		ft_printf("syntax error near token `%s`\n", error);
+		ft_putstr_fd("Syntax error near token `", 2);
+		ft_putstr_fd(error, 2);
+		ft_putstr_fd("`\n", 2);
 		return (1);
 	}
 	return (0);
 }
+// quotes devrait peut etre etre detectees des tokens_value. (donc renvoyer null?).
+// AUSSI : SYNTAX error doit indiquer le token suivant qui n est pas suppose etre la

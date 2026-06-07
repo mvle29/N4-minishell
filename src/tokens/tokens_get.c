@@ -12,13 +12,7 @@
 
 #include "minishell.h"
 
-int	tokens_invalid(t_tokens tokens)
-{
-	(void)tokens;
-	return (0);
-}
-
-t_tokens	*tokens_get(t_shell *shell, char *line)
+int	tokens_get(t_shell *shell, char *line)
 {
 	t_tokens	*tmp;
 	int			i;
@@ -35,7 +29,7 @@ t_tokens	*tokens_get(t_shell *shell, char *line)
 			if (!tmp || !tmp->lexeme || ft_strcmp(tmp->lexeme, "") == 0)
 			{
 				cleanup_tokens(shell);
-				return (NULL);
+				return (0);
 			}
 			if (!shell->tokens)
 				shell->tokens = tmp;
@@ -43,5 +37,5 @@ t_tokens	*tokens_get(t_shell *shell, char *line)
 		}
 	}
 	tmp->next = NULL;
-	return (shell->tokens);
+	return (1);
 }

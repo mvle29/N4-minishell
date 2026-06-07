@@ -31,8 +31,8 @@ int	main(int agc, char **agv, char **envp)
 			continue ;
 		//write(1, shell.line, ft_strlen(shell.line));
 		//write(1, "\n", 1);
-		shell.tokens = tokens_get(&shell, shell.line); //			malloc = exit; free line dedans ?
-		if (!shell.tokens || tokens_error_syntax(shell.tokens))
+		//			malloc = exit; free line dedans ?
+		if (!tokens_get(&shell, shell.line) || !shell.tokens || tokens_syntax_error(shell.tokens))
 		{
 			if (!shell.tokens)
 				ft_printf("tokens failed to be allocated : if this problem persists, try restarting minishell by pressing Ctrl+D on an empty line.\n");

@@ -106,9 +106,9 @@ void		def_signals(t_shell *shell);
 
 char		*get_line(t_shell *shell);
 
-int			tokens_error_syntax(t_tokens *tokens);
+int			tokens_syntax_error(t_tokens *tokens);
 
-t_tokens	*tokens_get(t_shell *shell, char *line);
+int			tokens_get(t_shell *shell, char *line);
 t_tokens	*tokens_values(t_tokens *last, char *line, int i);
 
 void		cleanup_and_exit(t_shell *shell, char *msg, int fd, int status);

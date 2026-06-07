@@ -46,8 +46,6 @@ void	print_tokens(t_shell *shell)
 			type = "DLESSER";
 		else if (tmp->token == WORD)
 			type = "WORD";
-		else if (tmp->token == NONE)
-			type = "NONE";
 		printf("token_type: %s ; lexeme: %s\n", type, tmp->lexeme);
 		tmp = tmp->next;
 	}

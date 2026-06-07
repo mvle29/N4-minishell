@@ -9,7 +9,7 @@ ARC = $(ARC_PRINTF) $(ARC_LIBFT)
 INCLUDE = $(foreach H,$(HEADER),-I $H)
 
 SRC_TOKENS_DIR = tokens/
-SRC_TOKENS_FILES = tokens_get.c tokens_validity.c tokens_values.c
+SRC_TOKENS_FILES = tokens_get.c tokens_syntax_error.c tokens_values.c
 SRC_TOKENS = $(foreach F,$(SRC_TOKENS_FILES),$(SRC_TOKENS_DIR)$F)
 
 SRC_CLEANUP_DIR = cleanup/
