@@ -40,6 +40,8 @@ clean :
 	make clean -C libs/libft
 
 fclean : clean
+	make fclean -C libs/ft_printf
+	make fclean -C libs/libft
 	rm -f $(NAME)
 
 re : fclean all
