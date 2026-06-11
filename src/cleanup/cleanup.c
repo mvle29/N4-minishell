@@ -33,9 +33,9 @@ void	cleanup_loop(t_shell *shell)
 
 void	cleanup_and_exit(t_shell *shell, char *msg, int fd, int status)
 {
-	cleanup_shell(shell);
 	if (msg)
 		write(fd, msg, ft_strlen(msg));
+	cleanup_shell(shell);
 	rl_clear_history();
 	exit(status);
 }

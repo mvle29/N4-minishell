@@ -8,6 +8,10 @@ ARC_LIBFT = libs/libft/libft.a
 ARC = $(ARC_PRINTF) $(ARC_LIBFT)
 INCLUDE = $(foreach H,$(HEADER),-I $H)
 
+SRC_AST_DIR = ast_build/
+SRC_AST_FILES = args_redirs_utils.c ast_build.c
+SRC_AST = $(foreach F,$(SRC_AST_FILES),$(SRC_AST_DIR)$F)
+
 SRC_TOKENS_DIR = tokens/
 SRC_TOKENS_FILES = tokens_get.c tokens_syntax_error.c tokens_values.c
 SRC_TOKENS = $(foreach F,$(SRC_TOKENS_FILES),$(SRC_TOKENS_DIR)$F)
@@ -17,7 +21,7 @@ SRC_CLEANUP_FILES = cleanup.c cleanup_tokens.c cleanup_ast.c
 SRC_CLEANUP = $(foreach F,$(SRC_CLEANUP_FILES),$(SRC_CLEANUP_DIR)$F)
 
 SRC_DIR = src/
-SRC_FILES = main.c get_line.c setup.c signals.c test.c $(SRC_TOKENS) $(SRC_CLEANUP)
+SRC_FILES = main.c get_line.c setup.c signals.c test.c $(SRC_TOKENS) $(SRC_CLEANUP) $(SRC_AST)
 SRC = $(foreach F,$(SRC_FILES),$(SRC_DIR)$F)
 
 OBJ = $(SRC:.c=.o)

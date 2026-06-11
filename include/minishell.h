@@ -64,7 +64,6 @@ typedef struct	s_redirs
 {
 	t_tokens	*tokens;
 	char		*file;
-	t_redirs	*next;
 }	t_redirs;
 
 //right and left : uniquement pour noeuds de type : (AND OR) et PIPE
@@ -75,19 +74,10 @@ typedef struct	s_ast
 	t_tokens		*start;
 	t_tokens		*end;
 	t_ast_type		ast_type;
-	union u_data
-	{
-		struct s_cmd
-		{
-			char		**args;
-			t_redirs	*redirs;
-		}	cmd;
-		struct s_binary
-		{
-			t_ast	*right;
-			t_ast	*left;
-		}	binary;
-	}	type;
+	char			**args;
+	t_redirs		**redirs;
+	t_ast			*right;
+	t_ast			*left;
 }	t_ast;
 
 typedef struct s_shell
@@ -111,13 +101,21 @@ int			tokens_syntax_error(t_tokens *tokens);
 int			tokens_get(t_shell *shell, char *line);
 t_tokens	*tokens_values(t_tokens *last, char *line, int i);
 
+int			ast_build_recursive(t_ast **ast, t_tokens *start, t_tokens *end);
+int			get_args(t_ast **ast, t_tokens *start, t_tokens *end);
+int			get_redirs(t_ast **ast, t_tokens *start, t_tokens *end);
+int			count_redirs(t_tokens *start, t_tokens *end);
+int			count_args(t_tokens *start, t_tokens *end);
+
 void		cleanup_and_exit(t_shell *shell, char *msg, int fd, int status);
 void		cleanup_loop(t_shell *shell);
 void		cleanup_shell(t_shell *shell);
 void		cleanup_tokens(t_shell *shell);
+void		free_ast(t_ast *ast);
 void		cleanup_ast(t_shell *shell);
 
 void		print_tokens(t_shell *shell);
+void		print_ast(t_ast *ast);
 
 #endif
 
