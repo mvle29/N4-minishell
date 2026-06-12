@@ -20,8 +20,12 @@ SRC_CLEANUP_DIR = cleanup/
 SRC_CLEANUP_FILES = cleanup.c cleanup_tokens.c cleanup_ast.c
 SRC_CLEANUP = $(foreach F,$(SRC_CLEANUP_FILES),$(SRC_CLEANUP_DIR)$F)
 
+SRC_PARSE_DIR = parsing/
+SRC_PARSE_FILES = parse.c $(SRC_AST) $(SRC_TOKENS)
+SRC_PARSE = $(foreach F,$(SRC_PARSE_FILES),$(SRC_PARSE_DIR)$F)
+
 SRC_DIR = src/
-SRC_FILES = main.c get_line.c setup.c signals.c test.c $(SRC_TOKENS) $(SRC_CLEANUP) $(SRC_AST)
+SRC_FILES = main.c get_line.c setup.c signals.c test.c $(SRC_PARSE) $(SRC_CLEANUP) 
 SRC = $(foreach F,$(SRC_FILES),$(SRC_DIR)$F)
 
 OBJ = $(SRC:.c=.o)

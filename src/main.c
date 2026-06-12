@@ -32,30 +32,19 @@ int	main(int agc, char **agv, char **envp)
 		//write(1, shell.line, ft_strlen(shell.line));
 		//write(1, "\n", 1);
 		//			malloc = exit; free line dedans ?
-		if (!tokens_get(&shell, shell.line) || !shell.tokens || tokens_syntax_error(shell.tokens))
+		if (!parse(&shell))
 		{
-			if (!shell.tokens)
-				ft_printf("tokens failed to be allocated : if this problem persists, try restarting minishell by pressing Ctrl+D on an empty line.\n");
 			cleanup_loop(&shell);
 			continue ;
 		}
-		print_tokens(&shell);
-		/*if (tokens_invalid(shell.tokens)) //aucun token ici	error token syntax ? dans la fonction -bash: syntax error near unexpected token `;'
-			continue ;*/
-		if (!ast_build_recursive(&(shell.ast), shell.tokens, NULL) || !shell.ast /*|| ast_invalid(shell.ast)*/)
+		if (!expand(shell.ast) || !resolve_hd(shell.ast));
 		{
-			if (!shell.ast)
-				ft_printf("ast failed to be allocated : if this problem persists, try restarting minishell by pressing Ctrl+D on an empty line.\n");
 			cleanup_loop(&shell);
 			continue ;
 		}
-		print_ast(shell.ast);
-		cleanup_loop(&shell);
-		//shell.ast = parse_into_ast(shell.tokens);//					malloc = exit
-		//if (ast_invalid(shell.ast)) //aucun tree
-		//	continue ;
-		//expand_ast(shell.ast);
+		//execute(shell);
 		//resolve_heredocs(shell.ast);
+		cleanup_loop(&shell);
 		//executor(shell.ast);
 		//free_ast(shell.ast);
 	}

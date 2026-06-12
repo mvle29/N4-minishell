@@ -14,10 +14,9 @@
 
 int	ast_initialize(t_ast **ast, t_tokens *start, t_tokens *end, t_tokens *binary)
 {
-	*ast = malloc(sizeof(t_ast));
+	*ast = calloc(1, sizeof(t_ast));
 	if (!*ast)
 		return (0);
-	ft_memset(*ast, 0, sizeof(t_ast));
 	if (binary)
 		(*ast)->ast_type = AST_PIPE;
 	else
@@ -55,9 +54,8 @@ int	ast_build_recursive(t_ast **ast, t_tokens *start, t_tokens *end)
 	}
 	else
 	{
-		(*ast)->args = malloc(sizeof(char *) * (count_args(start, end) + 1));
-		(*ast)->redirs = malloc(sizeof(t_redirs *) * (count_redirs(start, end) + 1));
-		if ((*ast)->args && (*ast)->redirs && get_redirs(ast, start, end) && get_args(ast, start, end))
+		(*ast)->redirs = calloc((count_redirs(start, end) + 1), sizeof(t_redirs *));
+		if (get_redirs(ast, start, end))
 			return (1);
 	}
 	free_ast(*ast);

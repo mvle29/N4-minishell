@@ -12,20 +12,6 @@
 
 #include "minishell.h"
 
-int	count_args(t_tokens *start, t_tokens *end)
-{
-	int i;
-
-	i = 0;
-	while (start && start != end)
-	{
-		if (start->token == WORD)
-			i++;
-		start = start->next;
-	}
-	return (i);
-}
-
 int	count_redirs(t_tokens *start, t_tokens *end)
 {
 	int	i;
@@ -40,14 +26,37 @@ int	count_redirs(t_tokens *start, t_tokens *end)
 	return (i);
 }
 
-int	get_redirs(t_ast **ast, t_tokens *start, t_tokens *end)
+int	get_redirs_fail(t_ast **ast, t_redirs **redirs, int i)
+{
+	if (redirs[i])
+		free(redirs[i]);
+	while (--i && i >= 0)
+		free(redirs[i]);
+	free(redirs);
+	(*ast)->redirs = NULL;
+	return (0);
+}
+
+int	get_redirs_file(t_ast **ast, t_tokens *start, int i)
 {
 	t_tokens	*tmp;
+
+	tmp = start;
+	while (tmp->token != WORD)
+		tmp = tmp->next;
+	if (!tmp)
+		return (0);
+	return (1);
+}
+
+int	get_redirs(t_ast **ast, t_tokens *start, t_tokens *end)
+{
 	int	count;
 	int	i;
 
+	if (!(*ast)->redirs)
+		return (0);
 	count = count_redirs(start, end);
-	(*ast)->redirs[count] = NULL;
 	i = 0;
 	while (start && start != end && i < count)
 	{
@@ -55,16 +64,10 @@ int	get_redirs(t_ast **ast, t_tokens *start, t_tokens *end)
 		{
 			(*ast)->redirs[i] = malloc(sizeof(t_redirs));
 			if (!(*ast)->redirs[i])
-			{
-				while (--i && i >= 0)
-					free((*ast)->redirs[i]);
-				return (0);
-			}
+				return (get_redirs_fail(ast, (*ast)->redirs, i));
 			(*ast)->redirs[i]->tokens = start;
-			tmp = start;
-			while (tmp->token != WORD)
-				tmp = tmp->next;
-			(*ast)->redirs[i]->file = tmp->lexeme;
+			if (!get_redirs_file(ast, start, i))
+				return (get_redirs_fail(ast, (*ast)->redirs, i));*/
 			i++;
 		}
 		start = start->next;
@@ -72,13 +75,14 @@ int	get_redirs(t_ast **ast, t_tokens *start, t_tokens *end)
 	return (1);
 }
 
-int	get_args(t_ast **ast, t_tokens *start, t_tokens *end)
+/*int	get_args(t_ast **ast, t_tokens *start, t_tokens *end)
 {
 	int	count;
 	int	i;
 
+	if (!(*ast)->args)
+		return (0);
 	count = count_args(start, end);
-	(*ast)->args[count] = NULL;
 	i = 0;
 	while (start && start != end && i < count)
 	{
@@ -90,4 +94,4 @@ int	get_args(t_ast **ast, t_tokens *start, t_tokens *end)
 		start = start->next;
 	}
 	return (1);
-}
+}*/

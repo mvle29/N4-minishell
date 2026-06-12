@@ -98,6 +98,8 @@ char		*get_line(t_shell *shell);
 
 int			tokens_syntax_error(t_tokens *tokens);
 
+int 		parse(t_shell *shell);
+
 int			tokens_get(t_shell *shell, char *line);
 t_tokens	*tokens_values(t_tokens *last, char *line, int i);
 
