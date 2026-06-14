@@ -6,7 +6,7 @@
 /*   By: mat <mat@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 00:51:12 by mat               #+#    #+#             */
-/*   Updated: 2026/06/12 00:53:39 by mat              ###   ########.fr       */
+/*   Updated: 2026/06/14 17:25:22 by mat              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int parse(t_shell *shell)
 			ft_printf("ast failed to be allocated : if this problem persists, try restarting minishell by pressing Ctrl+D on an empty line.\n");
         return (0);
 	}
-	print_ast(shell->ast);
+	//print_ast(shell->ast);
     return (1);
 }

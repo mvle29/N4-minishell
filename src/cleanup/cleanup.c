@@ -16,8 +16,8 @@ void	cleanup_shell(t_shell *shell)
 {
 	if (shell)
 	{
-		cleanup_tokens(shell);
 		cleanup_ast(shell);
+		cleanup_tokens(shell);
 		if (shell->line)
 			free(shell->line);
 		if (shell->last_line)
@@ -27,8 +27,8 @@ void	cleanup_shell(t_shell *shell)
 
 void	cleanup_loop(t_shell *shell)
 {
-	cleanup_tokens(shell);
 	cleanup_ast(shell);
+	cleanup_tokens(shell);
 }
 
 void	cleanup_and_exit(t_shell *shell, char *msg, int fd, int status)

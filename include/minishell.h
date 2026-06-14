@@ -64,6 +64,8 @@ typedef struct	s_redirs
 {
 	t_tokens	*tokens;
 	char		*file;
+	char		*delimiter;
+	char		*hd;
 }	t_redirs;
 
 //right and left : uniquement pour noeuds de type : (AND OR) et PIPE
@@ -108,6 +110,9 @@ int			get_args(t_ast **ast, t_tokens *start, t_tokens *end);
 int			get_redirs(t_ast **ast, t_tokens *start, t_tokens *end);
 int			count_redirs(t_tokens *start, t_tokens *end);
 int			count_args(t_tokens *start, t_tokens *end);
+
+int 		resolve_hd_recursive(t_ast *ast);
+int 		expand_recursive(t_ast *ast);
 
 void		cleanup_and_exit(t_shell *shell, char *msg, int fd, int status);
 void		cleanup_loop(t_shell *shell);

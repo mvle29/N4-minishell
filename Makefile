@@ -9,7 +9,7 @@ ARC = $(ARC_PRINTF) $(ARC_LIBFT)
 INCLUDE = $(foreach H,$(HEADER),-I $H)
 
 SRC_AST_DIR = ast_build/
-SRC_AST_FILES = args_redirs_utils.c ast_build.c
+SRC_AST_FILES = redirs_utils.c ast_build.c
 SRC_AST = $(foreach F,$(SRC_AST_FILES),$(SRC_AST_DIR)$F)
 
 SRC_TOKENS_DIR = tokens/
@@ -25,7 +25,7 @@ SRC_PARSE_FILES = parse.c $(SRC_AST) $(SRC_TOKENS)
 SRC_PARSE = $(foreach F,$(SRC_PARSE_FILES),$(SRC_PARSE_DIR)$F)
 
 SRC_DIR = src/
-SRC_FILES = main.c get_line.c setup.c signals.c test.c $(SRC_PARSE) $(SRC_CLEANUP) 
+SRC_FILES = main.c get_line.c setup.c signals.c test.c expand.c resolve_hd.c $(SRC_PARSE) $(SRC_CLEANUP) 
 SRC = $(foreach F,$(SRC_FILES),$(SRC_DIR)$F)
 
 OBJ = $(SRC:.c=.o)

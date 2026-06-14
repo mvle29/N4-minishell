@@ -37,7 +37,7 @@ int	get_redirs_fail(t_ast **ast, t_redirs **redirs, int i)
 	return (0);
 }
 
-int	get_redirs_file(t_ast **ast, t_tokens *start, int i)
+int	get_redirs_file(t_redirs *redirs, t_tokens *start)
 {
 	t_tokens	*tmp;
 
@@ -46,6 +46,8 @@ int	get_redirs_file(t_ast **ast, t_tokens *start, int i)
 		tmp = tmp->next;
 	if (!tmp)
 		return (0);
+	if (start->token == DLESSER)
+		redirs->file = tmp->lexeme;
 	return (1);
 }
 
@@ -66,8 +68,8 @@ int	get_redirs(t_ast **ast, t_tokens *start, t_tokens *end)
 			if (!(*ast)->redirs[i])
 				return (get_redirs_fail(ast, (*ast)->redirs, i));
 			(*ast)->redirs[i]->tokens = start;
-			if (!get_redirs_file(ast, start, i))
-				return (get_redirs_fail(ast, (*ast)->redirs, i));*/
+			if (!get_redirs_file((*ast)->redirs[i], start))
+				return (get_redirs_fail(ast, (*ast)->redirs, i));
 			i++;
 		}
 		start = start->next;

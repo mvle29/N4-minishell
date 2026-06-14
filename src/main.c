@@ -37,11 +37,12 @@ int	main(int agc, char **agv, char **envp)
 			cleanup_loop(&shell);
 			continue ;
 		}
-		if (!expand(shell.ast) || !resolve_hd(shell.ast));
+		if (!expand_recursive(shell.ast) || !resolve_hd_recursive(shell.ast))
 		{
 			cleanup_loop(&shell);
 			continue ;
 		}
+		print_ast(shell.ast);
 		//execute(shell);
 		//resolve_heredocs(shell.ast);
 		cleanup_loop(&shell);

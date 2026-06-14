@@ -65,16 +65,22 @@ void	print_cmd(char **args, t_redirs **redirs)
 {
 	int	i = 0;
 
-	while (args && args[i])
+	/*while (args && args[i])
 	{
 		printf("arg %i : %s; ", i, args[i]);
 		i++;
-	}
+	}*/
+	(void)args;
 	printf ("\n");
 	i = 0;
 	while (redirs && redirs[i])
 	{
-		printf("redir %i : %s to/from file %s; ", i, (redirs[i])->tokens->lexeme, redirs[i]->file);
+		if (redirs[i]->delimiter)
+			printf("redir %i : %s delimiter ", i, redirs[i]->delimiter);
+		if (redirs[i]->hd)
+			printf("body = .%s.\n", redirs[i]->hd);
+		else
+			printf("redir %i : %s\n", i, (redirs[i])->tokens->lexeme);
 		i++;
 	}
 	printf("\n");
