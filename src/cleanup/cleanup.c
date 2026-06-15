@@ -12,12 +12,22 @@
 
 #include "minishell.h"
 
+void	cleanup_env(t_shell *shell)
+{
+	if (shell->envp)
+	{
+		ptrptr_free((void **)shell->envp);
+		shell->envp = NULL;
+	}
+}
+
 void	cleanup_shell(t_shell *shell)
 {
 	if (shell)
 	{
 		cleanup_ast(shell);
 		cleanup_tokens(shell);
+		cleanup_env(shell);
 		if (shell->line)
 			free(shell->line);
 		if (shell->last_line)

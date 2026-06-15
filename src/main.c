@@ -20,8 +20,8 @@ int	main(int agc, char **agv, char **envp)
 
 	setup(agc, agv, envp, &shell);
 	(void)agc;
-	(void)envp;
 	(void)agv;
+	print_envp(shell.envp);
 	while (1)
 	{
 		shell.line = get_line(&shell);
@@ -37,7 +37,7 @@ int	main(int agc, char **agv, char **envp)
 			cleanup_loop(&shell);
 			continue ;
 		}
-		if (!expand_recursive(shell.ast) || !resolve_hd_recursive(shell.ast))
+		if (!resolve_hd_recursive(shell.ast)) //!expand_recursive(shell.ast)
 		{
 			cleanup_loop(&shell);
 			continue ;

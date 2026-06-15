@@ -94,7 +94,7 @@ typedef struct s_shell
 
 void		setup(int agc, char **agv, char **envp, t_shell *shell);
 int			check_signal(t_shell *shell, int sig);
-void		def_signals(t_shell *shell);
+void		setup_signals(t_shell *shell);
 
 char		*get_line(t_shell *shell);
 
@@ -123,6 +123,7 @@ void		cleanup_ast(t_shell *shell);
 
 void		print_tokens(t_shell *shell);
 void		print_ast(t_ast *ast);
+void		print_envp(char **envp);
 
 #endif
 

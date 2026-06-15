@@ -34,7 +34,7 @@ void	handle_signals(int sig)
 	}
 }
 
-void	def_signals(t_shell *shell)
+void	setup_signals(t_shell *shell)
 {
 	struct sigaction	sa;
 	sigset_t				mask;

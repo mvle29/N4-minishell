@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ptrptr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mat <mat@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 14:02:36 by mavallee          #+#    #+#             */
-/*   Updated: 2026/06/15 13:06:14 by mat              ###   ########.fr       */
+/*   Created: 2026/06/15 13:33:09 by mat               #+#    #+#             */
+/*   Updated: 2026/06/15 13:59:53 by mat              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+int ptrptr_count(void **tab)
 {
-	t_list	*head;
+    int i;
 
-	head = (t_list *)malloc(sizeof(t_list));
-	if (!head)
-		return (NULL);
-	head->content = content;
-	head->next = NULL;
-	return (head);
+    i = 0;
+    if (!tab)
+        return (0);
+    while(tab[i] != NULL)
+        i++;
+    return (i);
 }
 
-/*cree un nouvel element lst avec content.*/
+int ptrptr_free(void **tab)
+{
+    int i;
+
+    i = 0;
+    if (!tab)
+        return (1);
+    while (tab[i] != NULL)
+    {
+        free(tab[i]);
+        i++;
+    }
+    free(tab);
+    return (1);
+}

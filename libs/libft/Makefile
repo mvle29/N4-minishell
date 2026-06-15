@@ -47,7 +47,7 @@ SRC_STR = $(foreach F,$(SRC_STR_FILES),$(SRC_STR_DIR)$F)
 
 
 SRC = ft_atoi.c ft_tolower.c ft_toupper.c ft_split.c ft_itoa.c \
-${SRC_STR} ${SRC_MEM} ${SRC_LST} ${SRC_IS_} ${SRC_FD}
+ptrptr.c ${SRC_STR} ${SRC_MEM} ${SRC_LST} ${SRC_IS_} ${SRC_FD}
 
 OBJECTS = $(SRC:.c=.o)
 

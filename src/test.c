@@ -107,3 +107,15 @@ void	print_ast(t_ast *ast)
 		print_cmd(ast->args, ast->redirs);
 	}
 }
+
+void	print_envp(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
+}

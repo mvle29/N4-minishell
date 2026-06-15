@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mat <mat@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 08:08:00 by mavallee          #+#    #+#             */
-/*   Updated: 2026/06/01 19:03:46 by marvin           ###   ########.fr       */
+/*   Updated: 2026/06/15 13:52:26 by mat              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 int					ft_strcmp(char *s1, char *s2);
 long				ft_abs(long n);
 int					ft_issign(int c);
+int 				ptrptr_count(void **tab);
+int 				ptrptr_free(void **tab);
 
 #endif
