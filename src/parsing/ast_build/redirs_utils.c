@@ -46,8 +46,7 @@ int	get_redirs_file(t_redirs *redirs, t_tokens *start)
 		tmp = tmp->next;
 	if (!tmp)
 		return (0);
-	if (start->token == DLESSER)
-		redirs->file = tmp->lexeme;
+	redirs->file = tmp;
 	return (1);
 }
 

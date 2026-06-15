@@ -6,7 +6,7 @@
 /*   By: mat <mat@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 01:58:31 by mat               #+#    #+#             */
-/*   Updated: 2026/06/14 21:02:47 by mat              ###   ########.fr       */
+/*   Updated: 2026/06/15 22:22:10 by mat              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,7 @@ int count_no_quotes(char *word)
     mode = NORMAL;
     while (word[i])
     {
-        if (word[i] == '"' && mode == NORMAL)
-            mode = DOUBLEQ;
-        else if (word[i] == '\'' && mode == NORMAL)
-            mode = SINGLEQ;
-        else if (word[i] == '\'' && mode == SINGLEQ)
-            mode = NORMAL;
-        else if (word[i] == '"' && mode == DOUBLEQ)
-            mode = NORMAL;
-        else
+        if (!mode_change(&mode, word, i))
             count++;
         i++;
     }
@@ -43,23 +35,15 @@ int get_hd_delimiter(t_redirs *redirs)
     int     i;
     t_mode  mode;
 
-    i = count_no_quotes(redirs->file);
+    i = count_no_quotes(redirs->file->lexeme);
     redirs->delimiter = malloc(sizeof(char) * (i + 1));
     i = 0;
     if (!redirs->delimiter)
         return (0);
-    while (redirs->file[i])
+    while (redirs->file->lexeme[i])
     {
-        if (redirs->file[i] == '"' && mode == NORMAL)
-            mode = DOUBLEQ;
-        else if (redirs->file[i] == '\'' && mode == NORMAL)
-            mode = SINGLEQ;
-        else if (redirs->file[i] == '\'' && mode == SINGLEQ)
-            mode = NORMAL;
-        else if (redirs->file[i] == '"' && mode == DOUBLEQ)
-            mode = NORMAL;
-        else
-            redirs->delimiter[i] = redirs->file[i];
+        if (!mode_change(&mode, redirs->file->lexeme, i))
+            redirs->delimiter[i] = redirs->file->lexeme[i];
         i++;
     }
     redirs->delimiter[i] = '\0';

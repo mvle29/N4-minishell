@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mat <mat@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 16:13:39 by mavallee          #+#    #+#             */
-/*   Updated: 2026/06/15 22:10:56 by mat              ###   ########.fr       */
+/*   Created: 2026/06/15 22:19:19 by mat               #+#    #+#             */
+/*   Updated: 2026/06/15 22:22:05 by mat              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int mode_change(t_mode *mode, char *word, int i)
 {
-	while (lst)
-	{
-		if (f)
-			f(lst->content);
-		lst = lst->next;
-	}
+    if (word[i] == '"' && *mode == NORMAL)
+        *mode = DOUBLEQ;
+    else if (word[i] == '\'' && *mode == NORMAL)
+        *mode = SINGLEQ;
+    else if (word[i] == '\'' && *mode == SINGLEQ)
+        *mode = NORMAL;
+    else if (word[i] == '"' && *mode == DOUBLEQ)
+        *mode = NORMAL;
+    else
+        return (0);
+    return (1);
 }

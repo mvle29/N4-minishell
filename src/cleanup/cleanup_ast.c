@@ -23,8 +23,6 @@ void	free_redirs(t_redirs **redirs)
 			free(redirs[i]->delimiter);
 		if (redirs[i]->hd)
 			free(redirs[i]->hd);
-		if (redirs[i]->file && redirs[i]->tokens->token != DLESSER)
-			free(redirs[i]->file);
 		free(redirs[i]);
 		i++;
 	}

@@ -63,7 +63,7 @@ typedef struct	s_redirs t_redirs;
 typedef struct	s_redirs
 {
 	t_tokens	*tokens;
-	char		*file;
+	t_tokens	*file;
 	char		*delimiter;
 	char		*hd;
 }	t_redirs;
@@ -120,6 +120,8 @@ void		cleanup_shell(t_shell *shell);
 void		cleanup_tokens(t_shell *shell);
 void		free_ast(t_ast *ast);
 void		cleanup_ast(t_shell *shell);
+
+int 		mode_change(t_mode *mode, char *word, int i);
 
 void		print_tokens(t_shell *shell);
 void		print_ast(t_ast *ast);

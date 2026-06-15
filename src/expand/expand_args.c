@@ -1,23 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   expand_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mat <mat@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 16:13:39 by mavallee          #+#    #+#             */
-/*   Updated: 2026/06/15 22:10:56 by mat              ###   ########.fr       */
+/*   Created: 2026/06/15 22:08:18 by mat               #+#    #+#             */
+/*   Updated: 2026/06/15 22:08:46 by mat              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
-{
-	while (lst)
-	{
-		if (f)
-			f(lst->content);
-		lst = lst->next;
-	}
-}
+int expand_args()

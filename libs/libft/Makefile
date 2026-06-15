@@ -16,7 +16,7 @@ SRC_FD = $(foreach F,$(SRC_FD_FILES),$(SRC_FD_DIR)$F)
 SRC_LST_DIR = lst/
 SRC_LST_FILES = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
 ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c \
-ft_lstiter_bonus.c ft_lstmap_bonus.c
+ft_lstiter_bonus.c ft_lstmap_bonus.c ft_lstsplit.c
 SRC_LST = $(foreach F,$(SRC_LST_FILES),$(SRC_LST_DIR)$F)
 
 SRC_MEM_DIR = mem/
@@ -61,8 +61,8 @@ $(NAME): $(OBJECTS)
 %.o: %.c
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
-bonus: $(OBJECTS) $(BONUS_OBJECTS)
-	$(AR) $(ARFLAGS) $(NAME) $(BONUS_OBJECTS)
+#bonus: $(OBJECTS) $(BONUS_OBJECTS)
+#	$(AR) $(ARFLAGS) $(NAME) $(BONUS_OBJECTS)
 
 clean:
 	rm -f $(OBJECTS) $(BONUS_OBJECTS)
